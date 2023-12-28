@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Games</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://code.jquery.com">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/src/components/extra/javascript.js" defer></script>
+    <style type="text/css">
+        input {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <fieldset>
+        <h1>Registration Form - registration</h1>
+        <label>name :</label>
+        <input type="text" id="Rname" placeholder="name" required><br>
+        <label>email :</label>
+        <input type="email" id="Remail" placeholder="Email" required><br>
+        <label>Password :</label>
+        <input type="password" id="passwordsas" placeholder="Password" required><br />
+        <button id="registerButton">Register</button><br /><br />
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Sign in Form - Signin</h1>
+        <label>username : </label>
+        <input type="text" id="username-sign" placeholder="name || email" required><br />
+        <label>password : </label>
+        <input type="password" id="password-sign" placeholder="Password" required><br />
+        <button id="signInButton">Sign in</button><br /><br />
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Sign in With Google - SignIn-Google</h1>
+        <button id="SignInGoogle">SignIn with Google</button><br />
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Sign in With Facebook - SignIn-Facebook</h1>
+        <button id="SignInFacebook">SignIn with Facebook</button><br />
+    </fieldset><br />
+
+
+    <fieldset>
+        <h1>Friend Request - Friend-Request</h1>
+        <label>token : </label>
+        <input type="text" id="Femail" placeholder="token" required><br />
+        <label>From : </label>
+        <input type="email" id="from" placeholder="To email Address" required><br />
+        <button type="button" id="FriendRequest">Friend Request</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Email Request - Create-mail</h1>
+        <form action="/emailupload" method="POST" id="image-sends" enctype="multipart/form-data">
+            <label>token :</label>
+            <input type="text" id="crtoken" placeholder="token"><br />
+            <label>To:</label>
+            <input type="email" id="froms" placeholder="To email Address"><br />
+            <label>Subject:</label>
+            <input type="text" id="Subjects" placeholder="Subject"><br />
+            <label>message:</label>
+            <input type="text" id="message" placeholder="message"><br />
+            <label>Attach Image:</label>
+            <input type="file" name="image" id="Eimage" accept="image/*"><br />
+            <button type="submit" id="emailRequestButton">Create email</button>
+        </form>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Email Delte - Email-Delete</h1>
+        <label>token :-</label>
+        <input type="text" id="emaildeletetoken" placeholder="token"><br />
+        <label>id : -</label>
+        <input type="text" id="edeleteid" placeholder="_id"><br />
+        <button id="EmailDelete">Delete</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Email Inbox - Inbox</h1>
+        <label>token :</label>
+        <input type="text" id="yourmailss" placeholder="token" required><br />
+        <button type="button" id="Inbox">Check Inbox</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Email Send Inbox - send-Inbox</h1>
+        <label>token :</label>
+        <input type="text" id="emailsend" placeholder="token" required><br />
+        <button type="button" id="sendInbox">Check Inbox</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Mini Bundle - Mini-Bundle</h1>
+        <button id="MiniBundle">Mini Bundle</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Big Bundle - Big-Bundle</h1>
+        <button id="BigBundle">Big Bundle</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Online payment - payment</h1>
+        <!-- <a href="https://buy.stripe.com/test_dR67st0dMfOX1gIaEG">Payment</a> -->
+        <button id="payment">payment</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Welcome to the Free Bundle Task - complete-Task</h1>
+        <button id="completeTask">Complete Task</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Watch Add and Collect Bundle - Watch-Collect</h1>
+        <label>token</label>
+        <input type="text" id="wctoken" placeholder="token"><br />
+        <button id="WatchCollect">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Store - Search-Bar</h1>
+        <label>key : </label>
+        <input type="text" id="Search-item" placeholder="Item name">
+        <button id="SearchBar">Find</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Store Add Item - Add-To-Store</h1>
+        <form action="/store" method="POST" id="Storeimage-send" enctype="multipart/form-data">
+            <label>image</label>
+            <input type="file" name="image" id="stoimage" accept="image/*"><br />
+            <label>Item name :</label>
+            <input type="text" name="Item" id="SItem"><br />
+            <label>Type : </label>
+            <input type="text" id="Type" name="Type"><br />
+            <label>Price : </label>
+            <input type="number" id="Price" name="Price"><br />
+            <label>IOS Id : </label>
+            <input type="number" id="ios" name="ios"><br />
+            <label>Android Id : </label>
+            <input type="number" id="Android" name="Android"><br />
+            <button type="submit">Add To Store</button>
+        </form>
+    </fieldset><br />
+
+
+    <fieldset>
+        <h1>Store Remove Item - Remove-To-Store</h1>
+        <label>id :-</label>
+        <input type="text" id="itemid" placeholder="id"><br />
+        <button id="RemoveToStore">Remove To Store</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Store Item- Store-Item</h1>
+        <label>Store Item : </label>
+        <button id="StoreItem">submit</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Chat with Friends - chat-message</h1>
+        <div id="chat">
+            <label>playerid :</label>
+            <input type="text" id="userId" placeholder="Player ID"><br />
+            <label>receiverPlayerid : </label>
+            <input type="text" id="receiver" placeholder="Receiver's Player ID">
+            <br /><br />
+            <label>Message : </label>
+            <input type="text" id="chatmessage" placeholder="Type a message">
+            <button id="chatMessages">Send</button>
+        </div>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>chat message history - chat-message-history</h1>
+        <label>playerid :- </label>
+        <input type="text" id="senderid" placeholder="Player id"><br />
+        <label> receiverPlayerid :-</label>
+        <input type="text" id="receiverid" placeholder="receiver Player id"><br />
+        <button id="chatmessagehistory">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Chat with Friends - chat-message-private</h1>
+        <div id="chat">
+            <label>Message : </label>
+            <input type="text" id="chatmessageprivate" placeholder="Type a message"><br />
+            <label>playerid :-</label>
+            <input type="text" id="privateid" placeholder="player id:-"><br />
+            <label>roomid :-</label>
+            <input type="text" id="roomprivateid" placeholder="room id:-"><br />
+            <button id="chatmessageprivate">Send</button>
+        </div>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Chat with Friends global - create-room-chat</h1>
+        <div id="chat">
+            <label>Message : </label>
+            <input type="text" id="gmessage" placeholder="Type a message"><br />
+            <label>playerid :-</label>
+            <input type="text" id="gid" placeholder="player id:-"><br />
+            <button id="createroomchat">Send</button>
+        </div>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Challenge With Friends - Challenge-Friends</h1>
+        <label>token : </label>
+        <input type="text" id="Chtoken" placeholder="token" required><br />
+        <label>id : </label>
+        <input type="text" id="ChallengeUser" placeholder="id" required><br />
+        <button id="ChallengeFriends">Send</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>View Challenge - view-Challenge</h1>
+        <label>token : </label>
+        <input type="text" id="vctoken" placeholder="token"><br />
+        <button id="viewChallenge">View</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Player join by Friends - player-join-friends</h1>
+        <label>token :- </label>
+        <input type="text" id="joinbytoken" placeholder="token"><br />
+        <label>key : -</label>
+        <input type="text" id="joinby" placeholder="true or false"><br />
+        <button id="playerjoinfriends">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Search Friend - SFriend</h1>
+        <label>token : </label>
+        <input type="text" id="SToken" placeholder="token" required><br />
+        <label>names : </label>
+        <input type="text" id="usernamees" placeholder="name ||  email" required>
+        <button type="submit" id="SFriend">Search</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>added to friend - added-to-friend</h1>
+        <label>token : -</label>
+        <input type="text" id="addedtoken" placeholder="token"><br />
+        <label>pendingId :-</label>
+        <input type="text" id="prndingid" placeholder="pending friend id"><br />
+        <label>key :-</label>
+        <input type="text" id="addedkey" placeholder="true or false"><br />
+        <button id="addedtofriend">click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Add Friend - AFriend</h1>
+        <label>token : </label>
+        <input type="text" id="userst" placeholder="token" required><br />
+        <label>id : </label>
+        <input type="text" id="ADFriend" placeholder="id">
+        <button type="submit" id="AFriend">Search</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>View Notification - View-notification</h1>
+        <label>token :-</label>
+        <input type="text" id="notitoken" placeholder="token"><br />
+        <button id="Viewnotification">View</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Remove Friend - remove-friend</h1>
+        <label>token : </label>
+        <input type="text" id="rmtoken" placeholder="token" required><br />
+        <label>id : </label>
+        <input type="text" id="remov-fr" placeholder="id">
+        <button id="removefriend">Remov Friend</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>View All Friend - View-Friend</h1>
+        <label>token : </label>
+        <input type="text" id="vftoken" placeholder="token"><br />
+        <button id="ViewFriend">View</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Profile Picture - Profile-Picture</h1>
+        <form action="/upload" method="POST" id="image-send" enctype="multipart/form-data">
+            <label>image</label>
+            <input type="file" name="image" id="upimage" accept="image/*"><br />
+            <label>token : </label>
+            <input type="text" name="imageUser" id="imageUser" placeholder="token">
+            <button type="submit">Send</button>
+        </form>
+
+        <div id="pp"></div>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Change Username - Change-Username</h1>
+        <label>token : </label>
+        <input type="text" id="Old-name" placeholder="Old name" required><br />
+        <label>newname : </label>
+        <input type="text" id="Changename" placeholder="New name" required><br />
+        <button id="ChangeUsername">Change</button>
+    </fieldset><br />
+
+    <fieldset>
+        <H1>Change Email - Change-Email</H1>
+        <label>token : </label>
+        <input type="text" id="Old-email" placeholder="token" required><br />
+        <label>newemail : </label>
+        <input type="email" id="New-email" placeholder="New Email" required><br /><br />
+        <button id="ChangeEmail">Email Change</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Delete Account - Delete-Account</h1>
+        <label>token : </label>
+        <input type="text" id="tokenInput" placeholder="token" required><br />
+        <label>otp : </label>
+        <input type="number" id="otpInput" placeholder="otp" required><br />
+        <button id="DeleteAccount">Delete</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Send Code Via Email - Email-Code</h1>
+        <label>token : </label>
+        <input type="text" id="emailtoken" placeholder="token" required><br />
+        <button id="EmailCode">Send Code</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Recover Account - Recover-Account</h1>
+        <label>token : </label>
+        <input type="text" id="tokenu" placeholder="token" required><br />
+        <label>otp : <label>
+                <input type="number" id="passwordsa" placeholder="otp" required><br />
+                <button id="RecoverAccount">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>User Profile - User-Profile</h1>
+        <label>token : </label>
+        <input type="text" id="UToken" placeholder="token" required>
+        <button id="UserProfile">View</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Sign Out - Sign-Out</h1>
+        <label>token : </label>
+        <input type="text" id="Signemail" required>
+        <button id="SignOut">Sign Out</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Graphics - Graphics</h1>
+        <h2>Graphics :- </h2>
+        <label>token :</label>
+        <input type="text" id="UserGraphics" placeholder="token" required><br />
+        <label>Graphics:-</label>
+        <input type="number" id="Graphics" placeholder="Graphics"><br />
+        <label>Shadows:-</label>
+        <input type="radio" name="Shadows" value="true">True
+        <input type="radio" name="Shadows" value="false">False<br />
+        <label>Effects:-</label>
+        <input type="radio" name="Effects" value="true">True
+        <input type="radio" name="Effects" value="false">False<br />
+        <button id="Graphics">Send</button>
+    </fieldset><br />
+
+
+    <fieldset>
+        <h1>Audio - Audio</h1>
+        <label>Token :</label>
+        <input type="text" placeholder="Token" id="AudioEmail" required><br />
+        <label>Volume :</label>
+        <input type="number" placeholder="Volume" id="Volume" required><br />
+        <label>SFX :</label>
+        <input type="radio" name="SFX" value="true" id="SFXTrue" required> True
+        <input type="radio" name="SFX" value="false" id="SFXFalse" required> False<br />
+        <label>AppSFX :</label>
+        <input type="radio" name="AppSFX" value="true" id="AppSFXTrue" required> True
+        <input type="radio" name="AppSFX" value="false" id="AppSFXFalse" required> False<br />
+        <button id="Audio">Save</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>feedback - feedback</h1>
+        <label>token : </label>
+        <input type="text" placeholder="token" id="feedtoken"><br />
+        <label>feedback : </label>
+        <textarea id="feedmessage" cols="30" rows="10"></textarea><br /><br />
+        <button id="feedback">Submit</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Golden Dice Coins Daily - Dice-Daily</h1>
+        <label>token : </label>
+        <input type="text" id="DiceId" placeholder="token" required>
+        <button id="DiceDaily"> Submit </button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Golden Dice Coins Weekly - Dice-Weekly</h1>
+        <label>token : </label>
+        <input type="text" id="DiceIds" placeholder="token" required>
+        <button id="DiceWeekly"> Submit </button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Golden Dice Completed Challenges - Dice-Challenges</h1>
+        <label>token : </label>
+        <input type="text" id="CCId" placeholder="token" required>
+        <button id="DiceChallenges"> Submit </button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Daily Bonus - Daily-Bonus</h1>
+        <label>token : </label>
+        <input type="text" id="Dtoken" placeholder="token">
+        <button id="DailyBonus">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Gold coin to cash - Gold-cash</h1>
+        <label>token</label>
+        <input type="text" id="gctoken" placeholder="token"><br />
+        <label>coin</label>
+        <input type="number" id="coincash" placeholder="coin"><br />
+        <button id="Goldcash">Transfer</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>add Daily challenges - add-Daily-challenges</h1>
+        <label>challenges name</label>
+        <input type="text" id="chllangename" placeholder="challenges name"><br />
+        <label>coin</label>
+        <input type="number" id="Dailychcoin" placeholder="coin"><br />
+        <button id="addDailychallenges">Add</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>View All Challenges - view-all-Challenges</h1>
+        <button id="viewallChallenges">View</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>complete Daily Challenge - complete-Daily-Challenge</h1>
+        <label>token : -</label>
+        <input type="text" id="completetoken" placeholder="token"><br />
+        <label>challengeId : -</label>
+        <input type="text" id="challengeId" placeholder="challenge Id"><br />
+        <label>points : -</label>
+        <input type="number" id="completepoint" placeholder="points"><br />
+        <button id="completeDailyChallenge">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>View Daily Challenge - View-Daily-Challenge</h1>
+        <label>token : -</label>
+        <input type="text" id="viewchtoken" placeholder="token"><br />
+        <button id="ViewDailyChallenge">View</button>
+    </fieldset><br />
+
+    <!-- <fieldset>
+        <h1>chellange complite gift - chellange-complite-gift</h1>
+        <label>token : -</label>
+        <input type="text" id="gifttoken" placeholder="token"><br />
+        <button onclick="CCGD()">Click</button>
+    </fieldset><br /> -->
+
+    <fieldset>
+        <h1>Create-Game-Room</h1>
+        <label>player id :-</label>
+        <input type="text" id="playergmaeid" placeholder="player id"><br />
+        <button id="CreateGameRoom">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Priveate-room-create</h1>
+        <label>room :-</label>
+        <input type="number" id="privateroom" placeholder="room type add 2 or 5"><br />
+        <label>playerid :-</label>
+        <input type="text" id="privateroomid" placeholder="Player id"><br />
+        <button id="Priveateroomcreate">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Join-Game-Room</h1>
+        <label>roomid : -</label>
+        <input type="text" id="roomid" placeholder="room id"><br />
+        <label>playerid : -</label>
+        <input type="text" id="joinroomid" placeholder="player id"><br />
+        <button id="JoinGameRoom">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Leave-global-Room</h1>
+        <label>player id:-</label>
+        <input type="text" id="gplayerleaveid" placeholder="player id"><br />
+        <label>roomid : -</label>
+        <input type="text" id="gleaveroomids" placeholder="room id"><br />
+        <button id="LeaveglobalRoom">leave</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Leave-Game-Room</h1>
+        <label>player id:-</label>
+        <input type="text" id="playerleaveid" placeholder="player id"><br />
+        <label>roomid : -</label>
+        <input type="text" id="leaveroomids" placeholder="room id"><br />
+        <button id="LeaveGameRoom">leave</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Gold Coin add - Coin-add</h1>
+        <label>token :-</label>
+        <input type="text" id="goldcointoken" placeholder="token"><br />
+        <label>Goldcoin : -</label>
+        <input type="number" id="coinadds" placeholder="Coin"><br />
+        <button id="Coinadd">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>Gold Coin remove - Gold-coin-remove</h1>
+        <label>token :-</label>
+        <input type="text" id="goldremovetoken" placeholder="token"><br />
+        <label>Goldcoin : -</label>
+        <input type="number" id="goldcoinremove" placeholder="Gold Coin"><br />
+        <button id="Goldcoinremove">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>cash add - cash-add</h1>
+        <label>token : -</label>
+        <input type="text" id="cashadd" placeholder="token"><br />
+        <label>cash : -</label>
+        <input type="number" id="cashamount" placeholder="cash"><br />
+        <button id="cashadd">Click</button>
+    </fieldset><br />
+
+    <fieldset>
+        <h1>cash Remove - cash-remove</h1>
+        <label>token : -</label>
+        <input type="text" id="cashtokens" placeholder="token"><br />
+        <label>cash : -</label>
+        <input type="number" id="cashremov" placeholder="cash amount"><br />
+        <button id="cashremove">Click</button>
+    </fieldset>
+
+
+</body>
+
+</html>
+
+<!-- dist*
+dist/config/
+dist/logger/
+dist/controller/
+dist/middleware/
+dist/server.js -->

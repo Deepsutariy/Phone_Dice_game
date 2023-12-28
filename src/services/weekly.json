@@ -1,0 +1,29 @@
+{
+    "challenges": [
+        {
+            "category": "Weekly",
+            "name": "Collect Bonuses",
+            "points": 50
+        },
+        {
+            "category": "Weekly",
+            "name": "Win Hi-Lo",
+            "points": 50
+        },
+        {
+            "category": "Weekly",
+            "name": "Win Games",
+            "points": 50
+        },
+        {
+            "category": "Weekly",
+            "name": "Roll 7 or 11 on First Roll",
+            "points": 50
+        },
+        {
+            "category": "Weekly",
+            "name": "Roll 7 or 11 After Losing to 2,3,12",
+            "points": 50
+        }
+    ]
+}

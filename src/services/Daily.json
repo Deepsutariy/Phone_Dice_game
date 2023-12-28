@@ -1,0 +1,29 @@
+{
+    "challenges": [
+        {
+            "category": "DAILY",
+            "name": "Collect Bonuses",
+            "coin": 20
+        },
+        {
+            "category": "DAILY",
+            "name": "Win Hi-Lo",
+            "coin": 20
+        },
+        {
+            "category": "DAILY",
+            "name": "Win Games",
+            "coin": 20
+        },
+        {
+            "category": "DAILY",
+            "name": "Roll 7 or 11 on First Roll",
+            "coin": 20
+        },
+        {
+            "category": "DAILY",
+            "name": "Roll 7 or 11 After Losing to 2,3,12",
+            "coin": 20
+        }
+    ]
+}
